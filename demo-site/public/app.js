@@ -6,7 +6,7 @@
    and watch the WAF catch them in real-time.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-const WAF = "http://localhost:8000";  // All requests go through CloudFort
+const WAF = window.location.origin;  // All requests go through the current CloudFort host
 let currentPage = "home";
 let cart = [];
 let loggedInUser = null;
@@ -845,7 +845,7 @@ async function launchAttack() {
       addLogEntry("allowed", `✅ ALLOWED — Passed CloudFort`, `Status: ${res.status} | ${elapsed}ms\nPayload: ${truncate(selectedPayload, 80)}`);
     }
   } catch (err) {
-    addLogEntry("error", `❌ ERROR — ${err.message}`, "Is CloudFort running on port 8000?");
+    addLogEntry("error", `❌ ERROR — ${err.message}`, "Could not reach the CloudFort WAF on this host.");
   } finally {
     btn.disabled = false; btn.textContent = "🚀 Launch Attack";
     const payloads = ATTACK_PAYLOADS[selectedAttack];
