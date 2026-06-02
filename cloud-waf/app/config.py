@@ -86,7 +86,8 @@ SECURITY_HEADERS: dict[str, str] = {
     "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
     "Content-Security-Policy": (
         "default-src 'self'; "
-        "script-src 'self'; "
+        "script-src 'self' 'unsafe-inline'; "
+        "style-src 'self' 'unsafe-inline'; "
         "object-src 'none';"
     ),
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
