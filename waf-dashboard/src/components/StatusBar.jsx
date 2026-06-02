@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../lib/api";
 
 export default function StatusBar() {
   const [now, setNow] = useState(new Date());
@@ -12,7 +13,7 @@ export default function StatusBar() {
   useEffect(() => {
     const check = async () => {
       try {
-        await fetch("http://localhost:8000/waf/stats", { signal: AbortSignal.timeout(3000) });
+        await fetch(`${API_BASE_URL}/waf/stats`, { signal: AbortSignal.timeout(3000) });
         setStatus("online");
       } catch {
         setStatus("offline");

@@ -1,16 +1,16 @@
-const BASE_URL = (
+export const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL ||
   (import.meta.env.DEV ? "http://localhost:8000" : window.location.origin)
 ).replace(/\/$/, "");
 
 async function fetchJSON(endpoint) {
-  const res = await fetch(`${BASE_URL}${endpoint}`);
+  const res = await fetch(`${API_BASE_URL}${endpoint}`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
 
 async function postJSON(endpoint, body = {}) {
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -20,7 +20,7 @@ async function postJSON(endpoint, body = {}) {
 }
 
 async function deleteJSON(endpoint) {
-  const res = await fetch(`${BASE_URL}${endpoint}`, { method: "DELETE" });
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, { method: "DELETE" });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }

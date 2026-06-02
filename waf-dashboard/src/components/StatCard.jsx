@@ -69,17 +69,6 @@ export default function StatCard({ label, value, icon, color = "cyan", delta, in
         cursor: "default",
       }}
     >
-      {/* Corner glow orb */}
-      <div style={{
-        position: "absolute", top: -40, right: -40,
-        width: 100, height: 100,
-        borderRadius: "50%",
-        background: `radial-gradient(circle, ${c.glow}20 0%, transparent 70%)`,
-        pointerEvents: "none",
-        transition: "opacity 0.3s",
-        opacity: isHovered ? 1 : 0.5,
-      }} />
-
       {/* Bottom edge line */}
       <div style={{
         position: "absolute", bottom: 0, left: "10%", right: "10%",

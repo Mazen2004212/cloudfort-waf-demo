@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { usePolling } from "../hooks/usePolling";
 import { getAttacks } from "../lib/api";
 
@@ -109,7 +109,7 @@ export default function AttackLog() {
                   const sev = getSeverityConfig(atk.severity || 0);
                   const isOpen = expanded === atk.id;
                   return (
-                    <tbody key={atk.id}>
+                    <React.Fragment key={atk.id}>
                       <tr
                         onClick={() => setExpanded(isOpen ? null : atk.id)}
                         style={{
@@ -195,7 +195,7 @@ export default function AttackLog() {
                           </td>
                         </tr>
                       )}
-                    </tbody>
+                    </React.Fragment>
                   );
                 })}
               </tbody>

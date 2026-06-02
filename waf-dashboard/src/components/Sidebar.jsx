@@ -11,32 +11,16 @@ export default function Sidebar({ activePage, onNavigate }) {
   const [hovered, setHovered] = useState(null);
 
   return (
-    <aside style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "var(--sidebar-width)",
-      height: "100vh",
-      background: "rgba(6, 10, 20, 0.95)",
-      backdropFilter: "blur(20px)",
-      borderRight: "1px solid rgba(255,255,255,0.05)",
-      display: "flex",
-      flexDirection: "column",
-      zIndex: 100,
-      transition: "width 0.3s cubic-bezier(0.4,0,0.2,1)",
-    }}>
+    <aside className="sidebar">
       {/* ── Brand ────────────────────────────────────────── */}
-      <div style={{
-        padding: "28px 24px 32px",
-        borderBottom: "1px solid rgba(255,255,255,0.05)",
-      }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+      <div className="sidebar-brand">
+        <div className="sidebar-brand-row">
           <img src="/cloudfort-logo.jpg" alt="CloudFort Logo" style={{
             width: 42, height: 42, borderRadius: 12,
             objectFit: "cover",
             boxShadow: "0 0 20px rgba(0, 212, 255, 0.3)",
           }} />
-          <div>
+          <div className="sidebar-brand-copy">
             <div style={{
               fontSize: 17, fontWeight: 800,
               fontFamily: "var(--font-mono)",
@@ -59,7 +43,7 @@ export default function Sidebar({ activePage, onNavigate }) {
       </div>
 
       {/* ── Navigation ───────────────────────────────────── */}
-      <nav style={{ flex: 1, padding: "20px 12px", display: "flex", flexDirection: "column", gap: 4 }}>
+      <nav className="sidebar-nav">
         {NAV_ITEMS.map((item) => {
           const isActive = activePage === item.id;
           const isHover = hovered === item.id;
@@ -89,6 +73,7 @@ export default function Sidebar({ activePage, onNavigate }) {
                 position: "relative",
                 overflow: "hidden",
               }}
+              title={item.label}
             >
               {/* Active glow */}
               {isActive && (
@@ -108,10 +93,7 @@ export default function Sidebar({ activePage, onNavigate }) {
       </nav>
 
       {/* ── Footer ───────────────────────────────────────── */}
-      <div style={{
-        padding: "16px 24px",
-        borderTop: "1px solid rgba(255,255,255,0.05)",
-      }}>
+      <div className="sidebar-footer">
         <div style={{
           display: "flex", alignItems: "center", gap: 10,
           padding: "10px 14px",

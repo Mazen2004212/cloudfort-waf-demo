@@ -47,16 +47,12 @@ export default function App() {
 /* ─── Status bar header with dynamic title ────────────────────────────── */
 function StatusBarHeader({ pageInfo }) {
   return (
-    <div style={{
-      display: "flex", alignItems: "center", justifyContent: "space-between",
-      marginBottom: 28, flexWrap: "wrap", gap: 14,
-      animation: "fadeIn 0.4s ease both",
-    }}>
+    <div className="page-header">
       <div>
-        <h1 style={{ fontSize: 24, fontWeight: 700, color: "var(--text-primary)", margin: 0, lineHeight: 1.2 }}>
+        <h1 className="page-title">
           {pageInfo.title}
         </h1>
-        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "4px 0 0" }}>
+        <p className="page-subtitle">
           {pageInfo.subtitle}
         </p>
       </div>
@@ -68,32 +64,23 @@ function StatusBarHeader({ pageInfo }) {
 /* ─── Dashboard Page ──────────────────────────────────────────────────── */
 function DashboardPage() {
   return (
-    <div style={{ animation: "fadeIn 0.3s ease both" }}>
+    <div className="page-shell">
       {/* KPI Strip */}
       <KPIRow />
 
       {/* Timeline full width */}
-      <div style={{ marginBottom: 16 }}>
+      <div className="dashboard-row">
         <HourlyTimeline />
       </div>
 
       {/* Charts row: attack distribution + blacklist */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 360px",
-        gap: 16,
-        marginBottom: 16,
-      }}>
+      <div className="dashboard-grid dashboard-grid-aside">
         <AttackTypeChart />
         <BlacklistPanel />
       </div>
 
       {/* Bottom row: log + top attackers */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 360px",
-        gap: 16,
-      }}>
+      <div className="dashboard-grid dashboard-grid-aside">
         <AttackLog />
         <TopAttackers />
       </div>
@@ -104,7 +91,7 @@ function DashboardPage() {
 /* ─── Attacks Page (full-width log) ───────────────────────────────────── */
 function AttacksPage() {
   return (
-    <div style={{ animation: "fadeIn 0.3s ease both" }}>
+    <div className="page-shell">
       <AttackLog />
     </div>
   );
@@ -113,12 +100,7 @@ function AttacksPage() {
 /* ─── Blacklist Page ──────────────────────────────────────────────────── */
 function BlacklistPage() {
   return (
-    <div style={{
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: 16,
-      animation: "fadeIn 0.3s ease both",
-    }}>
+    <div className="dashboard-grid dashboard-grid-two page-shell">
       <BlacklistPanel />
       <TopAttackers />
     </div>
@@ -128,16 +110,13 @@ function BlacklistPage() {
 /* ─── Settings Page ───────────────────────────────────────────────────── */
 function SettingsPage() {
   return (
-    <div className="glass-card" style={{
-      padding: 32,
-      animation: "fadeIn 0.3s ease both",
-    }}>
+    <div className="glass-card settings-card page-shell">
       <h3 className="section-title" style={{ marginBottom: 24 }}>
         <span style={{ fontSize: 16 }}>⚙️</span>
         CloudFort Configuration
       </h3>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+      <div className="settings-grid">
         <SettingItem
           label="Target Server"
           value="http://localhost:9000"
