@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NexaStore — Premium online electronics store. Shop headphones, keyboards, accessories and more." />
+  <title>NexaStore — Premium Electronics</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <!-- ═══ NAVBAR ═══════════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand" onclick="navigate('home')">
+        <span class="brand-icon">🛒</span>
+        <span class="brand-text">Nexa<span class="brand-accent">Store</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#" class="nav-link active" data-page="home" onclick="navigate('home')">Home</a>
+        <a href="#" class="nav-link" data-page="products" onclick="navigate('products')">Products</a>
+        <a href="#" class="nav-link" data-page="contact" onclick="navigate('contact')">Contact</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-search-wrapper">
+          <input type="text" id="nav-search" class="nav-search-input" placeholder="Search products..." autocomplete="off" />
+          <button class="nav-search-btn" onclick="doNavSearch()">🔍</button>
+        </div>
+        <button class="nav-icon-btn" onclick="navigate('cart')" title="Cart">
+          🛒 <span class="cart-badge" id="cart-badge">0</span>
+        </button>
+        <button class="nav-icon-btn" id="auth-btn" onclick="navigate('login')" title="Account">
+          👤 Sign In
+        </button>
+        <button class="lab-toggle" onclick="toggleLab()" title="Security Lab">
+          🔓 Lab
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ MAIN CONTENT AREA ═══════════════════════════════════════════ -->
+  <main id="app-content">
+    <!-- Pages are rendered dynamically by app.js -->
+  </main>
+
+  <!-- ═══ FOOTER ══════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">
+            <span class="brand-icon">🛒</span>
+            <span class="brand-text">Nexa<span class="brand-accent">Store</span></span>
+          </div>
+          <p class="footer-desc">Premium electronics & accessories. Quality products, fast shipping, easy returns.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Quick Links</h4>
+          <a href="#" onclick="navigate('products')" class="footer-link">All Products</a>
+          <a href="#" onclick="navigate('contact')" class="footer-link">Contact Us</a>
+          <a href="#" onclick="navigate('login')" class="footer-link">My Account</a>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Newsletter</h4>
+          <p class="footer-desc" style="font-size:12px;">Get exclusive deals & new arrivals.</p>
+          <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+            <input type="email" id="newsletter-email" class="form-input" placeholder="your@email.com" style="margin-bottom:8px;" />
+            <button type="submit" class="btn-primary" style="width:100%; padding:10px;">Subscribe</button>
+          </form>
+          <div id="newsletter-result" class="form-feedback"></div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-heading">Security</h4>
+          <div class="footer-badge">🛡️ Protected by CloudFort WAF</div>
+          <p class="footer-desc" style="font-size:11px; margin-top:8px;">This is a demo site for CloudFort WAF testing. No real transactions are processed.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 NexaStore. Demo Project — Educational Use Only.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ SECURITY LAB PANEL ══════════════════════════════════════════ -->
+  <div id="security-lab" class="lab-panel hidden">
+    <div class="lab-header">
+      <div class="lab-title">
+        <img src="/cloudfort-logo.jpg" alt="CloudFort Logo" style="width:24px; height:24px; border-radius:6px; object-fit:cover;" />
+        Security Lab
+        <span class="lab-subtitle">CloudFort Attack Console</span>
+      </div>
+      <button class="lab-close" onclick="toggleLab()">✕</button>
+    </div>
+    <div class="lab-body">
+      <div class="lab-section">
+        <label class="lab-label">Attack Type</label>
+        <div id="attack-type-grid" class="attack-type-grid"></div>
+      </div>
+      <div class="lab-section">
+        <label class="lab-label">Payload Preview</label>
+        <div id="payload-preview" class="payload-preview">Select an attack type above</div>
+      </div>
+      <div class="lab-section">
+        <label class="lab-label">Target Endpoint</label>
+        <select id="target-endpoint" class="lab-select">
+          <option value="GET:/api/search?q=">GET /api/search?q=</option>
+          <option value="POST:/api/auth/login">POST /api/auth/login</option>
+          <option value="POST:/api/reviews">POST /api/reviews</option>
+          <option value="POST:/api/contact">POST /api/contact</option>
+          <option value="GET:/api/auth/profile?id=">GET /api/auth/profile?id=</option>
+          <option value="POST:/api/upload">POST /api/upload</option>
+          <option value="POST:/api/orders">POST /api/orders</option>
+          <option value="POST:/api/newsletter">POST /api/newsletter</option>
+        </select>
+      </div>
+      <button id="launch-btn" class="btn-launch" onclick="launchAttack()">
+        🚀 Launch Attack
+      </button>
+      <div class="lab-section">
+        <label class="lab-label">Response Log</label>
+        <div id="attack-log" class="attack-log">
+          <div class="log-placeholder">Attack results will appear here...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

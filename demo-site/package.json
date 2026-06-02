@@ -1,0 +1,9 @@
+{
+  "name": "waf-demo-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo e-commerce site for WAF attack testing",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
